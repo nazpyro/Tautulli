@@ -288,23 +288,10 @@ function isPrivateIP(ip_address) {
 }
 
 function humanTime(seconds) {
-    var d = Math.floor(moment.duration(seconds, 'seconds').asDays());
-    var h = Math.floor(moment.duration((seconds % 86400), 'seconds').asHours());
-    var m = Math.round(moment.duration(((seconds % 86400) % 3600), 'seconds').asMinutes());
-
-    var text = '';
-    if (d > 0) {
-        text = '<h3>' + d + '</h3><p> day' + ((d > 1) ? 's' : '') + '</p>'
-             + '<h3>' + h + '</h3><p> hr' + ((h > 1) ? 's' : '') + '</p>'
-             + '<h3>' + m + '</h3><p> min' + ((m > 1) ? 's' : '') + '</p>';
-    } else if (h > 0) {
-        text = '<h3>' + h + '</h3><p> hr' + ((h > 1) ? 's' : '') + '</p>'
-             + '<h3>' + m + '</h3><p> min' + ((m > 1) ? 's' : '') + '</p>';
-    } else {
-        text = '<h3>' + m + '</h3><p> min' + ((m > 1) ? 's' : '') + '</p>';
+    if (seconds > 0) {
+        return humanDuration(seconds * 1000).replaceAll(/(\d+) (\w+)/g, '<h3>$1</h3><p>$2</p>')
     }
-
-    return text
+    return "<h3>0</h3><p>mins</p>";
 }
 
 String.prototype.toProperCase = function () {
