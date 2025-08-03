@@ -4753,7 +4753,12 @@ class WebInterface(object):
 
         if isinstance(img, str) and img.startswith('interfaces/default/images'):
             fp = os.path.join(plexpy.PROG_DIR, 'data', img)
-            return serve_file(path=fp, content_type='image/png')
+            ext = img.rsplit(".", 1)[-1]
+            if ext == 'svg':
+                content_type = 'image/svg+xml'
+            else:
+                content_type = 'image/{}'.format(ext)
+            return serve_file(path=fp, content_type=content_type)
 
         if not img and not rating_key:
             if fallback in common.DEFAULT_IMAGES:

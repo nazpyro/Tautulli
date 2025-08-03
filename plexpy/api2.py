@@ -675,7 +675,6 @@ General optional parameters:
 
         elif self._api_cmd == 'pms_image_proxy':
             if 'return_hash' not in self._api_kwargs:
-                cherrypy.response.headers['Content-Type'] = 'image/jpeg'
                 return out['response']['data']
 
         elif self._api_cmd == 'get_geoip_lookup':
