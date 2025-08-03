@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.15.3 (2025-08-03)
+
+* Exporter:
+  * New: Added hearingImpaired for subtitles and visualImpaired for audio attributes to exporter fields.
+* Graphs:
+  * Fix: Remove duplicate "Total" entry in graph tooltips. (Thanks @zdimension) (#2534)
+* UI:
+  * Fix: Failing to retrieve collections / playlists with over 1000 items.
+  * Fix: Scrollbar not showing on macosx and webkit browsers. (#2221)
+  * Fix: Incorrect rounding of minutes in global stats play duration.
+  * Fix: Disable browser autocomplete for notification agent and newsletter agent configurations. (#2557)
+* API:
+  * New: Added ability to return svg files using pms_image_proxy API command.
+* Other:
+  * New: Added ability to set config values using environment variables. (Thanks @komuw) (#2309, #2543)
+
+
 ## v2.15.2 (2025-04-12)
 
 * Activity:
