@@ -4752,13 +4752,17 @@ class WebInterface(object):
         cherrypy.response.headers['Cache-Control'] = 'max-age=2592000'  # 30 days
 
         if isinstance(img, str) and img.startswith('interfaces/default/images'):
-            fp = os.path.join(plexpy.PROG_DIR, 'data', img)
+            resource_dir = os.path.join(plexpy.PROG_DIR, 'data/interfaces/default/images')
+            img_path = os.path.join(plexpy.PROG_DIR, 'data', img)
+            if not helpers.is_subdir(img_path, resource_dir):
+                return
+
             ext = img.rsplit(".", 1)[-1]
             if ext == 'svg':
                 content_type = 'image/svg+xml'
             else:
                 content_type = 'image/{}'.format(ext)
-            return serve_file(path=fp, content_type=content_type)
+            return serve_file(path=img_path, content_type=content_type)
 
         if not img and not rating_key:
             if fallback in common.DEFAULT_IMAGES:
@@ -4855,9 +4859,13 @@ class WebInterface(object):
             cherrypy.response.headers['Cache-Control'] = 'max-age=3600'  # 1 hour
 
             if len(args) >= 2 and args[0] == 'images':
-                resource_dir = os.path.join(str(plexpy.PROG_DIR), 'data/interfaces/default/')
+                resource_dir = os.path.join(plexpy.PROG_DIR, 'data/interfaces/default')
+                img_path = os.path.join(resource_dir, *args)
+                if not helpers.is_subdir(img_path, resource_dir):
+                    return
+
                 try:
-                    return serve_file(path=os.path.join(resource_dir, *args), content_type='image/png')
+                    return serve_file(path=img_path, content_type='image/png')
                 except NotFound:
                     return
 
